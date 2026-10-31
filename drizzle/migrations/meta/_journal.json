@@ -22,6 +22,13 @@
       "when": 1793433295386,
       "tag": "0002_complete_application_publishing_and_setup_checks",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793433588226,
+      "tag": "0003_restrict_internal_account_and_role_functions",
+      "breakpoints": true
     }
   ]
 }
