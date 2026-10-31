@@ -1,9 +1,11 @@
 # Roadmap
 
-- [ ] Create the requested first account using supplied credentials; retain email verification before granting administration.
+- [x] Create requested account, verify confirmed email and activate first-admin through secure claim; signed-in admin tabs and reload verified.
 
-- [ ] Complete backend audit and missing application behavior; verify admin sign-in/setup and protected actions.
-- [ ] Perform whole-site SEO review, fix concrete issues, optimize loading and deliver analysis; public indexing requires publication.
+- [x] Audit backend; add approval publishing trigger, complete 14-table diagnostic coverage, server-validated admin eligibility, explicit AI pause reset; authenticated setup reports zero mismatches.
+- [ ] Verify CSV imports, private-file restoration and approval publishing with user records/files; awaiting exported inputs.
+- [x] Review all 29 content route modules and 24 rendered URLs; metadata present, status 200, invalid market 404; add registration canonicals, smaller shared logos and nonblocking logo overrides.
+- [ ] Finish sitemap, published performance and Google indexing checks; waiting for publication/public address.
 
 - [ ] Add customer support chat grounded in help docs and customer-authorized order data, with human handoff on uncertainty; awaiting conversation/history preferences, source locations and handoff destination.
 
@@ -16,12 +18,12 @@
 - [x] Add verified-email first-account admin setup and private account profiles
 - [x] Add organized restoration of reports, registration documents and country logos
 - [x] Audit every archived website image: all 339 asset files already match byte-for-byte
-- [ ] Verify new admin claim, CSV import and file restoration end-to-end: waiting for the user's first verified account and exported records/files; no auth users currently exist
+- [ ] Verify new admin claim, CSV import and file restoration end-to-end: waiting for the user's first verified account and exported records/files; verified admin now available, awaiting exported records/files
 
 - [ ] Update Funding Programme registration, optional summit package and online process; restore and verify autoplay video
 
 - [x] Add student market-validation AI advisor and guardian-consented registration; verified real submission storage and complete AI plan
-- [ ] Verify Young Innovators private admin inbox through signed-in UI: this remix has no auth users; admin must sign up first
+- [ ] Verify Young Innovators private admin inbox through signed-in UI: signed-in inbox opened; waiting on real student registrations for populated verification
 - [x] Add supplied student images, poster registration fees/rewards and improve Young Innovators presentation
 
 - [x] Refocus Young Innovators on school students with business/startup ideas, retaining Classes 6–12 and India-focused presentation
