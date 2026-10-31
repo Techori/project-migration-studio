@@ -1,5 +1,9 @@
 # Roadmap
 
+- [ ] Optimize all website images, prioritizing Young Innovators, restore localhost rendering and use the two supplied images.
+- [ ] Update Young Innovators search/share metadata and add public sitemap; verify Google indexing access.
+- [ ] Add admin student registration table review with approve/reject and verify signed-in persistence.
+
 - [x] Create requested account, verify confirmed email and activate first-admin through secure claim; signed-in admin tabs and reload verified.
 
 - [x] Audit backend; add approval publishing trigger, complete 14-table diagnostic coverage, server-validated admin eligibility, explicit AI pause reset; authenticated setup reports zero mismatches.
