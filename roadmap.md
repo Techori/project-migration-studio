@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Complete backend audit and missing application behavior; verify admin sign-in/setup and protected actions.
+- [ ] Perform whole-site SEO review, fix concrete issues, optimize loading and deliver analysis; public indexing requires publication.
+
 - [ ] Add customer support chat grounded in help docs and customer-authorized order data, with human handoff on uncertainty; awaiting conversation/history preferences, source locations and handoff destination.
 
 - [x] Add personalized student project ideas from interests, skills and available materials; real AI generation completed with three tailored ideas and a seven-day plan
