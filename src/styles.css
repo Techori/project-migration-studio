@@ -63,6 +63,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-soft: var(--soft);
   --color-surface: var(--surface);
+  --color-challenge-gold: var(--challenge-gold);
 }
 
 :root {
@@ -196,6 +197,46 @@
 .innovators-hero { min-height: 530px; }
 .innovators-shade { background: linear-gradient(90deg, var(--background), color-mix(in oklab, var(--background) 86%, transparent) 30%, transparent 68%); }
 .innovators-tricolour { --india-saffron: oklch(0.76 0.17 58); --india-white: oklch(0.985 0 0); --india-green: oklch(0.5 0.14 145); background: linear-gradient(90deg, var(--india-saffron) 0% 33.33%, var(--india-white) 33.33% 66.66%, var(--india-green) 66.66% 100%); }
+.young-challenge-page {
+  --background: oklch(0.07 0 0);
+  --foreground: oklch(0.985 0 0);
+  --surface: oklch(0.12 0.008 20);
+  --primary: oklch(0.62 0.255 25);
+  --primary-foreground: oklch(1 0 0);
+  --muted-foreground: oklch(0.79 0.005 20);
+  --border: oklch(0.3 0.04 20);
+  --input: oklch(0.32 0.025 20);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0.15 0 0);
+  --challenge-gold: oklch(0.83 0.16 82);
+  --challenge-wine: oklch(0.2 0.065 23);
+  --challenge-glow: 0 0 28px color-mix(in oklab, var(--primary) 24%, transparent);
+  color-scheme: dark;
+}
+.young-challenge-hero { min-height: 590px; }
+.young-challenge-hero > img { object-position: center center; }
+.young-challenge-shade { background: linear-gradient(90deg, var(--background), color-mix(in oklab, var(--background) 92%, transparent) 25%, transparent 64%); }
+.young-benefits-band { background: var(--challenge-wine); }
+.young-challenge-page > section > div { padding-top: 40px; padding-bottom: 40px; }
+.young-challenge-page #journey h2, .young-challenge-page #fees-rewards h2 { font-size: 28px; text-transform: uppercase; }
+.young-challenge-page #journey ol { gap: 12px; }
+.young-challenge-page #journey li { position: relative; padding: 20px 16px; border: 1px solid var(--border); border-radius: 8px; background: linear-gradient(145deg, var(--surface), var(--background)); }
+.young-challenge-page #journey li > span { display: inline-grid; width: 40px; height: 40px; place-items: center; border-radius: 50%; background: var(--primary); color: var(--primary-foreground); font-size: 20px; box-shadow: var(--challenge-glow); }
+.young-challenge-page #journey li h3 { min-height: 40px; }
+.young-challenge-page #fees-rewards { border-top: 1px solid var(--primary); }
+.young-challenge-page #fees-rewards article { border-top: 3px solid var(--primary); }
+.young-challenge-page #fees-rewards article:nth-child(2) { border-top-color: var(--challenge-gold); }
+.young-challenge-page #fees-rewards article:nth-child(3) { border-top-color: var(--chart-2); }
+.young-rewards-total { background: var(--primary); color: var(--primary-foreground); box-shadow: var(--challenge-glow); }
+.young-challenge-page .registration-form select { color-scheme: dark; }
+@media (max-width: 1023px) and (min-width: 640px) { .young-challenge-hero > img { object-position: 58% center; } .young-challenge-shade { background: linear-gradient(90deg, var(--background), color-mix(in oklab, var(--background) 90%, transparent) 40%, transparent); } }
+@media (max-width: 639px) {
+  .young-challenge-hero { min-height: 820px; }
+  .young-challenge-hero > img { object-position: 70% bottom; height: 410px; top: auto; }
+  .young-challenge-shade { background: linear-gradient(180deg, var(--background) 0%, var(--background) 49%, color-mix(in oklab, var(--background) 72%, transparent) 65%, transparent 85%); }
+  .young-challenge-page > section > div { padding-top: 32px; padding-bottom: 32px; }
+  .young-challenge-page #journey li h3 { min-height: 0; }
+}
 @media (max-width: 639px) {
   .innovators-hero { min-height: 700px; }
   .innovators-hero > img { object-position: 65% bottom; }
