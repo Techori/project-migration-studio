@@ -1,20 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getAdminAccess } from "@/lib/admin-bootstrap.functions";
 import { LogOut, Trash2 } from "lucide-react";
 import { z } from "zod";
 import { AuthForm } from "@/components/auth-form";
-import { ProfilesAdmin } from "@/components/profiles-admin";
-import { SubmissionsAdmin } from "@/components/submissions-admin";
-import { ReportsAdmin } from "@/components/reports-admin";
-import { SetupAdmin } from "@/components/setup-admin";
+const ProfilesAdmin = lazy(() => import("@/components/profiles-admin").then(m => ({ default: m.ProfilesAdmin })));
+const SubmissionsAdmin = lazy(() => import("@/components/submissions-admin").then(m => ({ default: m.SubmissionsAdmin })));
+const ReportsAdmin = lazy(() => import("@/components/reports-admin").then(m => ({ default: m.ReportsAdmin })));
+const SetupAdmin = lazy(() => import("@/components/setup-admin").then(m => ({ default: m.SetupAdmin })));
 import { FirstAdminSetup } from "@/components/first-admin-setup";
-import { RecordsImportAdmin } from "@/components/records-import-admin";
-import { FilesRestoreAdmin } from "@/components/files-restore-admin";
-import { AccountProfileAdmin } from "@/components/account-profile-admin";
-import { CountryLogosAdmin } from "@/components/country-logos-admin";
-import { ProgrammeFeesAdmin } from "@/components/programme-fees-admin";
-import { YoungRegistrationsAdmin } from "@/components/young-registrations-admin";
-import { PrototypeSubmissionsAdmin } from "@/components/prototype-submissions-admin";
+const RecordsImportAdmin = lazy(() => import("@/components/records-import-admin").then(m => ({ default: m.RecordsImportAdmin })));
+const FilesRestoreAdmin = lazy(() => import("@/components/files-restore-admin").then(m => ({ default: m.FilesRestoreAdmin })));
+const AccountProfileAdmin = lazy(() => import("@/components/account-profile-admin").then(m => ({ default: m.AccountProfileAdmin })));
+const CountryLogosAdmin = lazy(() => import("@/components/country-logos-admin").then(m => ({ default: m.CountryLogosAdmin })));
+const ProgrammeFeesAdmin = lazy(() => import("@/components/programme-fees-admin").then(m => ({ default: m.ProgrammeFeesAdmin })));
+const YoungRegistrationsAdmin = lazy(() => import("@/components/young-registrations-admin").then(m => ({ default: m.YoungRegistrationsAdmin })));
+const PrototypeSubmissionsAdmin = lazy(() => import("@/components/prototype-submissions-admin").then(m => ({ default: m.PrototypeSubmissionsAdmin })));
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
@@ -40,6 +43,12 @@ export const Route = createFileRoute("/admin")({
 type Employee = { id: string; employee_id: string; full_name: string; photo_url: string | null; designation: string; department: string; status: string; valid_until: string | null };
 
 function AdminPage() {
+  const queryClient = useQueryClient();
+  const access = useServerFn(getAdminAccess);
+  const [accessError, setAccessError] = useState("");
+  const [setup, setSetup] = useState<string | null>(null);
+  const [accessVersion, setAccessVersion] = useState(0);
+  const signOut = async () => { await queryClient.cancelQueries(); queryClient.clear(); await supabase.auth.signOut(); };
   const [session, setSession] = useState<Session | null>(null);
   const [ready, setReady] = useState(false);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
@@ -51,18 +60,21 @@ function AdminPage() {
   }, []);
 
   useEffect(() => {
-    if (!session) { setIsAdmin(null); return; }
-    supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle()
-      .then(({ data }) => setIsAdmin(!!data));
-  }, [session]);
+    let current = true;
+    setIsAdmin(null); setSetup(null); setAccessError("");
+    if (!session) return;
+    access().then(result => { if (current) { setIsAdmin(result.admin); setSetup(result.setup); } })
+      .catch(error => { if (current) setAccessError(error instanceof Error ? error.message : "Access could not be checked."); });
+    return () => { current = false; };
+  }, [session?.user.id, accessVersion, access]);
 
   return <main className="min-h-[70vh] bg-background px-5 py-14 text-foreground sm:px-6 lg:px-12">
     <div className="mx-auto max-w-[1100px]">
       <p className="eyebrow text-[10px] font-bold uppercase">Staff area</p>
       <h1 className="mt-4 text-3xl font-black uppercase sm:text-5xl">Admin Panel</h1>
-      {!ready ? null : !session ? <AuthForm redirectPath="/admin" /> : isAdmin === null ? <p className="mt-8 text-sm text-muted-foreground">Checking access…</p> : !isAdmin
-        ? <FirstAdminSetup onComplete={() => setIsAdmin(true)} />
-        : <Tabs defaultValue="applications" className="mt-8"><div className="flex flex-wrap items-center justify-between gap-4"><TabsList className="h-auto flex-wrap justify-start"><TabsTrigger value="applications">Applications</TabsTrigger><TabsTrigger value="enquiries">Enquiries</TabsTrigger><TabsTrigger value="reports">Reports</TabsTrigger><TabsTrigger value="employees">Employees</TabsTrigger><TabsTrigger value="profiles">People profiles</TabsTrigger><TabsTrigger value="country-logos">Country logos</TabsTrigger><TabsTrigger value="young-innovators">Young Innovators</TabsTrigger><TabsTrigger value="prototypes">Prototype submissions</TabsTrigger><TabsTrigger value="programme-fees">Registration fees</TabsTrigger><TabsTrigger value="import">Import records</TabsTrigger><TabsTrigger value="files">Restore files</TabsTrigger><TabsTrigger value="account">My account</TabsTrigger><TabsTrigger value="setup">Setup check</TabsTrigger></TabsList><Button variant="outline" onClick={() => supabase.auth.signOut()}><LogOut size={14} /> Sign out</Button></div><TabsContent value="applications"><SubmissionsAdmin kind="applications" /></TabsContent><TabsContent value="enquiries"><SubmissionsAdmin kind="enquiries" /></TabsContent><TabsContent value="reports"><ReportsAdmin /></TabsContent><TabsContent value="employees"><AdminPanel email={session.user.email ?? ""} /></TabsContent><TabsContent value="profiles"><ProfilesAdmin /></TabsContent><TabsContent value="country-logos"><CountryLogosAdmin /></TabsContent><TabsContent value="young-innovators"><YoungRegistrationsAdmin /></TabsContent><TabsContent value="prototypes"><PrototypeSubmissionsAdmin /></TabsContent><TabsContent value="programme-fees"><ProgrammeFeesAdmin /></TabsContent><TabsContent value="import"><RecordsImportAdmin /></TabsContent><TabsContent value="files"><FilesRestoreAdmin /></TabsContent><TabsContent value="account"><AccountProfileAdmin /></TabsContent><TabsContent value="setup"><SetupAdmin /></TabsContent></Tabs>}
+      {!ready ? null : !session ? <AuthForm redirectPath="/admin" /> : accessError ? <div className="mt-8"><p role="alert">{accessError}</p><Button className="mt-3" onClick={() => setAccessVersion(v => v + 1)}>Retry access check</Button></div> : isAdmin === null ? <p className="mt-8 text-sm text-muted-foreground">Checking access…</p> : !isAdmin
+        ? setup === "eligible" || setup === "unverified" ? <FirstAdminSetup onComplete={() => setAccessVersion(v => v + 1)} /> : <div className="mt-8"><p>Your account does not have admin access. First-admin setup is closed or unavailable for this account.</p><Button className="mt-4" variant="outline" onClick={() => void signOut()}>Sign out</Button></div>
+        : <Suspense fallback={<p className="mt-8 text-sm text-muted-foreground">Loading admin workspace…</p>}><Tabs defaultValue="applications" className="mt-8"><div className="flex flex-wrap items-center justify-between gap-4"><TabsList className="h-auto flex-wrap justify-start"><TabsTrigger value="applications">Applications</TabsTrigger><TabsTrigger value="enquiries">Enquiries</TabsTrigger><TabsTrigger value="reports">Reports</TabsTrigger><TabsTrigger value="employees">Employees</TabsTrigger><TabsTrigger value="profiles">People profiles</TabsTrigger><TabsTrigger value="country-logos">Country logos</TabsTrigger><TabsTrigger value="young-innovators">Young Innovators</TabsTrigger><TabsTrigger value="prototypes">Prototype submissions</TabsTrigger><TabsTrigger value="programme-fees">Registration fees</TabsTrigger><TabsTrigger value="import">Import records</TabsTrigger><TabsTrigger value="files">Restore files</TabsTrigger><TabsTrigger value="account">My account</TabsTrigger><TabsTrigger value="setup">Setup check</TabsTrigger></TabsList><Button variant="outline" onClick={() => void signOut()}><LogOut size={14} /> Sign out</Button></div><TabsContent value="applications"><SubmissionsAdmin kind="applications" /></TabsContent><TabsContent value="enquiries"><SubmissionsAdmin kind="enquiries" /></TabsContent><TabsContent value="reports"><ReportsAdmin /></TabsContent><TabsContent value="employees"><AdminPanel email={session.user.email ?? ""} /></TabsContent><TabsContent value="profiles"><ProfilesAdmin /></TabsContent><TabsContent value="country-logos"><CountryLogosAdmin /></TabsContent><TabsContent value="young-innovators"><YoungRegistrationsAdmin /></TabsContent><TabsContent value="prototypes"><PrototypeSubmissionsAdmin /></TabsContent><TabsContent value="programme-fees"><ProgrammeFeesAdmin /></TabsContent><TabsContent value="import"><RecordsImportAdmin /></TabsContent><TabsContent value="files"><FilesRestoreAdmin /></TabsContent><TabsContent value="account"><AccountProfileAdmin /></TabsContent><TabsContent value="setup"><SetupAdmin /></TabsContent></Tabs></Suspense>}
     </div>
   </main>;
 }
