@@ -1,5 +1,11 @@
 # Roadmap
 
+- [x] Add guided CSV mapping, validation, preview and secure record import
+- [x] Add verified-email first-account admin setup and private account profiles
+- [x] Add organized restoration of reports, registration documents and country logos
+- [x] Audit every archived website image: all 339 asset files already match byte-for-byte
+- [ ] Verify new admin claim, CSV import and file restoration end-to-end: waiting for the user's first verified account and exported records/files; no auth users currently exist
+
 - [ ] Update Funding Programme registration, optional summit package and online process; restore and verify autoplay video
 
 - [x] Add student market-validation AI advisor and guardian-consented registration; verified real submission storage and complete AI plan

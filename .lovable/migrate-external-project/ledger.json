@@ -1,10 +1,10 @@
 [
   {"capability":"code","source":"code archive (TanStack Start)","outcome":"migrate","status":"verified","next_action":"none"},
   {"capability":"schema","source":"types.ts + app call sites","outcome":"migrate","status":"implemented","next_action":"run admin Setup check after first admin exists"},
-  {"capability":"records","source":"previous Lovable Cloud database","outcome":"migrate","status":"pending","next_action":"request CSV exports of people_profiles, employees, registration_applications, contact_submissions, customer_reports, young_innovators_registrations, prototype_submissions"},
-  {"capability":"auth identities","source":"previous Cloud auth (admin users)","outcome":"migrate","status":"pending","next_action":"admin signs up at /admin; grant admin role"},
+  {"capability":"records","source":"previous Lovable Cloud database","outcome":"migrate","status":"pending","next_action":"use admin Import records: upload CSV, map columns, review errors, confirm atomic import"},
+  {"capability":"auth identities","source":"previous Cloud auth (admin users)","outcome":"migrate","status":"pending","next_action":"first account signs up at /admin, confirms email, signs in and claims first-admin setup without sharing email in chat"},
   {"capability":"authorization","source":"user_roles/has_role","outcome":"migrate","status":"implemented","next_action":"verify after first admin exists"},
-  {"capability":"file bytes","source":"registration-documents, customer-reports, country-logos","outcome":"migrate","status":"pending","next_action":"private buckets created; files must be re-uploaded"},
+  {"capability":"file bytes","source":"registration-documents, customer-reports, country-logos","outcome":"migrate","status":"pending","next_action":"all 339 archived website assets match; restore private files via admin Restore files after importing owning records"},
   {"capability":"AI","source":"Lovable AI Gateway","outcome":"preserve","status":"implemented","next_action":"none (built in)"},
   {"capability":"verification","source":"-","outcome":"verify","status":"partial","next_action":"typecheck clean, 86 tests pass, home/admin load; admin flows pending admin account"}
 ]
