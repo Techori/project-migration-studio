@@ -1,0 +1,10 @@
+[
+  {"capability":"code","source":"TanStack Start archive","outcome":"migrate","status":"verified","next_action":"none"},
+  {"capability":"schema","source":"previous Cloud (types.ts + setup contract)","outcome":"migrate","status":"verified","next_action":"none"},
+  {"capability":"records","source":"previous Cloud database","outcome":"migrate","status":"pending","next_action":"request CSV exports of people_profiles, employees, registration_applications, contact_submissions, customer_reports"},
+  {"capability":"auth identities","source":"previous Cloud auth (admin users)","outcome":"migrate","status":"pending","next_action":"admin signs up again; grant admin role"},
+  {"capability":"authorization","source":"user_roles/has_role","outcome":"migrate","status":"implemented","next_action":"verify after first admin exists"},
+  {"capability":"file bytes","source":"registration-documents, customer-reports","outcome":"migrate","status":"pending","next_action":"buckets created; files must be re-uploaded or exported"},
+  {"capability":"AI","source":"Lovable AI Gateway","outcome":"preserve","status":"implemented","next_action":"none (built in)"},
+  {"capability":"verification","source":"-","outcome":"verify","status":"partial","next_action":"pages load, tests pass; admin flows pending admin account"}
+]

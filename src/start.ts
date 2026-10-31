@@ -7,6 +7,10 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
     return await next();
   } catch (error) {
+    // A disconnected client/explicit Stop is expected, not an HTML 500 page.
+    if (typeof error === "object" && error !== null && "name" in error && error.name === "AbortError") {
+      return new Response(null, { status: 499 });
+    }
     if (error != null && typeof error === "object" && "statusCode" in error) {
       throw error;
     }

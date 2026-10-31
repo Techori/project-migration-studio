@@ -1,0 +1,14 @@
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { Button } from "./ui/button";
+import { ChevronLeft, ChevronRight, Eye, RefreshCw } from "lucide-react";
+import { listStudentRegistrations } from "@/lib/young-innovators.functions";
+
+export function YoungRegistrationsAdmin() {
+  const [page, setPage] = useState(0); const [selected, setSelected] = useState<string | null>(null);
+  const list = useServerFn(listStudentRegistrations);
+  const query = useQuery({ queryKey: ["admin-young-registrations", page], queryFn: () => list({ data: { page } }) });
+  const row = query.data?.rows.find(r => r.id === selected);
+  return <section className="mt-8"><div className="flex items-center justify-between"><h2 className="text-xl font-bold">Young Innovators registrations</h2><Button variant="outline" size="icon" aria-label="Refresh student registrations" onClick={() => query.refetch()}><RefreshCw /></Button></div>{query.error && <p role="alert" className="mt-4">{query.error.message}</p>}{query.isPending && <p className="mt-4">Loading registrations…</p>}<p className="mt-4 text-sm text-muted-foreground">{query.data?.count ?? 0} registrations · Private student and guardian details</p><div className="mt-5 divide-y divide-border">{query.data?.rows.map(r => <div key={r.id} className="flex items-center justify-between gap-4 py-4"><div className="min-w-0"><p className="break-words font-bold">{r.idea_title}</p><p className="mt-1 text-xs text-muted-foreground">{r.application_code} · Class {r.school_class} · {r.status}</p></div><Button variant="outline" onClick={() => setSelected(r.id)}><Eye />View</Button></div>)}</div><div className="mt-4 flex items-center gap-3"><Button variant="outline" size="icon" aria-label="Previous registrations" disabled={page === 0} onClick={() => { setPage(page - 1); setSelected(null); }}><ChevronLeft /></Button><span>Page {page + 1}</span><Button variant="outline" size="icon" aria-label="Next registrations" disabled={(page + 1) * 20 >= (query.data?.count ?? 0)} onClick={() => { setPage(page + 1); setSelected(null); }}><ChevronRight /></Button></div>{row && <div className="mt-8 border-t border-border pt-6"><h3 className="font-bold">{row.application_code}</h3>{[["Student", row.student_name], ["Class", String(row.school_class)], ["City", row.city], ["Guardian", row.guardian_name], ["Guardian email", row.guardian_email], ["Guardian phone", row.guardian_phone], ["Idea", row.idea], ["Fee", `₹${row.fee_amount} + ${row.gst_percent}% GST · not a payment receipt`], ["Guardian consent recorded", new Date(row.consent_at).toLocaleString()]].map(([label, value]) => <div className="mt-4" key={label}><h4 className="text-sm font-bold text-primary">{label}</h4><p className="mt-1 whitespace-pre-wrap break-words text-sm">{value}</p></div>)}</div>}</section>;
+}
