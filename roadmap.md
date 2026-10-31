@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Add customer support chat grounded in help docs and customer-authorized order data, with human handoff on uncertainty; awaiting conversation/history preferences, source locations and handoff destination.
+
 - [x] Add personalized student project ideas from interests, skills and available materials; real AI generation completed with three tailored ideas and a seven-day plan
 - [x] Improve Young Innovators mobile layout and light theme while preserving all existing content and forms; checked 320/390/768px without horizontal overflow; 18 rule tests pass
 
