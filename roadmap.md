@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Create the requested first account using supplied credentials; retain email verification before granting administration.
+
 - [ ] Complete backend audit and missing application behavior; verify admin sign-in/setup and protected actions.
 - [ ] Perform whole-site SEO review, fix concrete issues, optimize loading and deliver analysis; public indexing requires publication.
 
