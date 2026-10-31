@@ -263,6 +263,27 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          avatar_url: string
+          display_name: string
+          id: string
+          preferences: Json
+        }
+        Insert: {
+          avatar_url?: string
+          display_name?: string
+          id: string
+          preferences?: Json
+        }
+        Update: {
+          avatar_url?: string
+          display_name?: string
+          id?: string
+          preferences?: Json
+        }
+        Relationships: []
+      }
       prototype_ai_access_state: {
         Row: {
           blocked_at: string
@@ -439,6 +460,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_import_records: {
+        Args: { _rows: Json; _table: string }
+        Returns: Json
+      }
       admin_save_employee: {
         Args: {
           _code: string
@@ -453,6 +478,7 @@ export type Database = {
         Returns: undefined
       }
       admin_setup_metadata: { Args: never; Returns: Json }
+      claim_first_admin: { Args: never; Returns: boolean }
       consume_form_submission_limit: {
         Args: { _key_hash: string }
         Returns: boolean

@@ -8,6 +8,13 @@
       "when": 1793430396236,
       "tag": "0000_recreate_site_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793431125676,
+      "tag": "0001_secure_admin_setup_and_record_import",
+      "breakpoints": true
     }
   ]
 }
