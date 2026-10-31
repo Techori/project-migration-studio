@@ -249,6 +249,13 @@
 .young-challenge-page .young-section-nav a { min-height: 36px; white-space: normal; }
 .young-challenge-page [data-slot="checkbox"] { flex-shrink: 0; }
 .young-challenge-page .young-hero-copy { position: relative; z-index: 1; }
+.light .young-challenge-page .young-challenge-hero {
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.2 0.005 25);
+  --muted-foreground: oklch(0.43 0.008 25);
+  color: var(--foreground);
+}
+.young-challenge-page .young-section-nav a { color: var(--foreground); }
 @media (max-width: 639px) {
   .young-challenge-page .young-challenge-hero { min-height: 0; padding-bottom: 250px; }
   .young-challenge-page .young-challenge-hero > img { height: 300px; }
@@ -266,6 +273,7 @@
   .young-challenge-page #fees-rewards article a { gap: 4px; }
   .young-challenge-page #fees-rewards .grid-cols-\[110px_1fr\] { grid-template-columns: 78px minmax(0,1fr); gap: 12px; }
   .young-challenge-page #fees-rewards .grid-cols-\[110px_1fr\] p.text-lg { font-size: 16px; }
+  .young-challenge-page .young-rewards-total { font-size: 16px; }
   .young-challenge-page #idea-video ol > li { grid-template-columns: 70px minmax(0,1fr); gap: 12px; }
   .young-challenge-page :is(#registration,#market-plan,#project-ideas) button { max-width: 100%; white-space: normal; height: auto; min-height: 44px; }
   .young-challenge-page > section:last-child a { white-space: normal; height: auto; min-height: 48px; }
