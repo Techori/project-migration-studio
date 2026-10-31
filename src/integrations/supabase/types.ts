@@ -483,6 +483,7 @@ export type Database = {
         Args: { _key_hash: string }
         Returns: boolean
       }
+      first_admin_setup_status: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

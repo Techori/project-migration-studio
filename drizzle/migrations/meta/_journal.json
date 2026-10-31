@@ -15,6 +15,13 @@
       "when": 1793431125676,
       "tag": "0001_secure_admin_setup_and_record_import",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793433295386,
+      "tag": "0002_complete_application_publishing_and_setup_checks",
+      "breakpoints": true
     }
   ]
 }
