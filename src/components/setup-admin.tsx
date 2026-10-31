@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useServerFn } from '@tanstack/react-start';
 import { RefreshCw, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { checkSetup } from '@/lib/setup.functions';
+import { checkSetup, resetPrototypeAiPause } from '@/lib/setup.functions';
 
 export function SetupAdmin() {
   const run = useServerFn(checkSetup);
+  const resetAi = useServerFn(resetPrototypeAiPause);
+  const [aiMessage, setAiMessage] = useState('');
   const [result, setResult] = useState<Awaited<ReturnType<typeof checkSetup>> | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -22,6 +24,13 @@ export function SetupAdmin() {
       <Button onClick={() => void check()} disabled={busy}><RefreshCw size={16} className={busy ? 'animate-spin' : ''} />{busy ? 'Checking…' : 'Run setup check'}</Button>
     </div>
     {error && <p role="alert" className="mt-5 text-destructive">{error}</p>}
+    <div className="mt-5 border-b border-border pb-5"><Button variant="outline" disabled={busy} onClick={async () => {
+      if (!window.confirm('Only reset after restoring AI credits or model access. Resume prototype AI advice?')) return;
+      setBusy(true); setAiMessage('');
+      try { await resetAi(); setAiMessage('AI pause reset. The next assessment can check restored access.'); }
+      catch (e) { setAiMessage(e instanceof Error ? e.message : 'AI pause could not be reset.'); }
+      finally { setBusy(false); }
+    }}>Reset prototype AI pause</Button>{aiMessage && <p role="status" className="mt-3 text-sm">{aiMessage}</p>}</div>
     {result && <div className="mt-6">
       <p role="status" className="font-semibold">{errors ? `${errors} mismatches found` : 'No mismatches in the application baseline'} · {result.findings.length - errors} warnings</p>
       <p className="mt-2 text-sm text-muted-foreground">{result.tableCount} database tables · {result.expectedCount} expected tables · {new Date(result.checkedAt).toLocaleString()}</p>

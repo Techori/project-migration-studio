@@ -42,3 +42,6 @@
 - Keep Young Innovators rules and fee calculations browser-safe and tested; guardian-consented registrations use a separate admin-only inbox and optional AI validation sends only idea/class fields through a same-origin streaming route, so minors' contacts never enter AI prompts or public profiles. Never equate registration with payment or selection.
 - Young Innovators presentation uses page-scoped theme tokens and a dedicated image-backed header; retain its content, deferred forms and shared programme rules independently of visual redesigns.
 - Student project suggestions use the typed AI Gateway Responses SDK through a validated, same-origin, durably limited streaming route; guardian consent is required and descriptions are not persisted.
+- Render shared country logos from bundled fallbacks immediately and load saved overrides without blocking page rendering; preserve same-origin preview restrictions.
+- Use lazy-loaded admin panels and server-validated access/setup eligibility; discard stale access responses and clear protected caches on sign-out.
+- Prototype AI payment/permission pauses require explicit admin reset after access recovery, never automatic inference retries.

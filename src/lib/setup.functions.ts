@@ -28,3 +28,15 @@ export const checkSetup = createServerFn({ method: 'POST' })
     }
     return { checkedAt: new Date().toISOString(), tableCount: metadata.tables.length, expectedCount: expectedTables.length, findings, drizzleSchemaEmpty };
   });
+
+export const resetPrototypeAiPause = createServerFn({ method: 'POST' })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    setResponseHeader('Cache-Control', 'no-store');
+    const { data: admin, error } = await context.supabase.rpc('has_role', { _user_id: context.userId, _role: 'admin' });
+    requireSetupAdmin(admin, Boolean(error));
+    const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
+    const { error: resetError } = await supabaseAdmin.from('prototype_ai_access_state').delete().eq('model_id', 'openai/gpt-6-astra');
+    if (resetError) throw new Error('AI pause could not be reset.');
+    return { ok: true };
+  });

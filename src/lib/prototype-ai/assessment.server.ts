@@ -32,7 +32,10 @@ export async function assessPrototype(request: Request) {
     if (!(error instanceof GatewayError)) return { status: 503, message: "The AI connection failed. Your details have not been submitted as an application." };
     console.error("Prototype AI request failed", { code: error.code, ids: error.ids, outcome: error.outcome });
     const message = error.code === "payment_required" ? "AI advice is paused until the website owner restores AI credits." : error.code === "permission_denied" ? (error.recovery?.message ?? "AI advice is paused until the website owner restores model access.") : error.code === "rate_limited" ? "The AI service is busy. Please wait before trying again." : "AI advice is unavailable. Your input is preserved; please contact the Riloyd team.";
-    if (error.code === "permission_denied" || error.code === "payment_required") await supabaseAdmin.from("prototype_ai_access_state").upsert({ model_id: model, status_code: error.httpStatus ?? 403, message });
+    if (error.code === "permission_denied" || error.code === "payment_required") {
+      const { error: pauseError } = await supabaseAdmin.from("prototype_ai_access_state").upsert({ model_id: model, status_code: error.httpStatus ?? 403, message, blocked_at: new Date().toISOString() });
+      if (pauseError) console.error("Prototype AI pause could not be recorded");
+    }
     return { status: error.httpStatus ?? 503, message };
   };
   const abort = new AbortController();
@@ -40,7 +43,7 @@ export async function assessPrototype(request: Request) {
   request.signal.addEventListener("abort", cancelRequest, { once: true });
   let gateway;
   try {
-    gateway = await streamResponse({ model: "openai/gpt-6-astra", instructions: prototypeAssessmentInstructions(), input: JSON.stringify({ idea: input.idea, prototype: input.prototype, eligibilityContext: input.context, fundingGoal: input.fundingGoal }), reasoning: { effort: "medium", summary: "auto" }, include: ["reasoning.encrypted_content"] }, { signal: abort.signal, maxRetries: 0 });
+    gateway = await streamResponse({ model, instructions: prototypeAssessmentInstructions(), input: JSON.stringify({ idea: input.idea, prototype: input.prototype, eligibilityContext: input.context, fundingGoal: input.fundingGoal }), reasoning: { effort: "medium", summary: "auto" }, include: ["reasoning.encrypted_content"] }, { signal: abort.signal, maxRetries: 0 });
   } catch (error) {
     request.signal.removeEventListener("abort", cancelRequest);
     if (isAssessmentAbort(error, abort.signal)) return stopped();
