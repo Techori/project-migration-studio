@@ -39,6 +39,7 @@ import { Route as StartupsSlugRouteImport } from './routes/startups.$slug'
 import { Route as TeamIndexRouteImport } from './routes/team.index'
 import { Route as TeamSlugRouteImport } from './routes/team.$slug'
 import { Route as ApiPublicPrototypeAssessmentRouteImport } from './routes/api/public/prototype-assessment'
+import { Route as ApiPublicStudentProjectIdeasRouteImport } from './routes/api/public/student-project-ideas'
 import { Route as ApiPublicYoungMarketPlanRouteImport } from './routes/api/public/young-market-plan'
 
 const IndexRoute = IndexRouteImport.update({
@@ -192,6 +193,12 @@ const ApiPublicPrototypeAssessmentRoute =
     path: '/api/public/prototype-assessment',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicStudentProjectIdeasRoute =
+  ApiPublicStudentProjectIdeasRouteImport.update({
+    id: '/api/public/student-project-ideas',
+    path: '/api/public/student-project-ideas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicYoungMarketPlanRoute =
   ApiPublicYoungMarketPlanRouteImport.update({
     id: '/api/public/young-market-plan',
@@ -230,6 +237,7 @@ export interface FileRoutesByFullPath {
   '/startups/': typeof StartupsIndexRoute
   '/team/': typeof TeamIndexRoute
   '/api/public/prototype-assessment': typeof ApiPublicPrototypeAssessmentRoute
+  '/api/public/student-project-ideas': typeof ApiPublicStudentProjectIdeasRoute
   '/api/public/young-market-plan': typeof ApiPublicYoungMarketPlanRoute
 }
 export interface FileRoutesByTo {
@@ -263,6 +271,7 @@ export interface FileRoutesByTo {
   '/startups': typeof StartupsIndexRoute
   '/team': typeof TeamIndexRoute
   '/api/public/prototype-assessment': typeof ApiPublicPrototypeAssessmentRoute
+  '/api/public/student-project-ideas': typeof ApiPublicStudentProjectIdeasRoute
   '/api/public/young-market-plan': typeof ApiPublicYoungMarketPlanRoute
 }
 export interface FileRoutesById {
@@ -297,6 +306,7 @@ export interface FileRoutesById {
   '/startups/': typeof StartupsIndexRoute
   '/team/': typeof TeamIndexRoute
   '/api/public/prototype-assessment': typeof ApiPublicPrototypeAssessmentRoute
+  '/api/public/student-project-ideas': typeof ApiPublicStudentProjectIdeasRoute
   '/api/public/young-market-plan': typeof ApiPublicYoungMarketPlanRoute
 }
 export interface FileRouteTypes {
@@ -332,6 +342,7 @@ export interface FileRouteTypes {
     | '/startups/'
     | '/team/'
     | '/api/public/prototype-assessment'
+    | '/api/public/student-project-ideas'
     | '/api/public/young-market-plan'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -365,6 +376,7 @@ export interface FileRouteTypes {
     | '/startups'
     | '/team'
     | '/api/public/prototype-assessment'
+    | '/api/public/student-project-ideas'
     | '/api/public/young-market-plan'
   id:
     | '__root__'
@@ -398,6 +410,7 @@ export interface FileRouteTypes {
     | '/startups/'
     | '/team/'
     | '/api/public/prototype-assessment'
+    | '/api/public/student-project-ideas'
     | '/api/public/young-market-plan'
   fileRoutesById: FileRoutesById
 }
@@ -432,6 +445,7 @@ export interface RootRouteChildren {
   StartupsIndexRoute: typeof StartupsIndexRoute
   TeamIndexRoute: typeof TeamIndexRoute
   ApiPublicPrototypeAssessmentRoute: typeof ApiPublicPrototypeAssessmentRoute
+  ApiPublicStudentProjectIdeasRoute: typeof ApiPublicStudentProjectIdeasRoute
   ApiPublicYoungMarketPlanRoute: typeof ApiPublicYoungMarketPlanRoute
 }
 
@@ -647,6 +661,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPrototypeAssessmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/student-project-ideas': {
+      id: '/api/public/student-project-ideas'
+      path: '/api/public/student-project-ideas'
+      fullPath: '/api/public/student-project-ideas'
+      preLoaderRoute: typeof ApiPublicStudentProjectIdeasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/young-market-plan': {
       id: '/api/public/young-market-plan'
       path: '/api/public/young-market-plan'
@@ -688,6 +709,7 @@ const rootRouteChildren: RootRouteChildren = {
   StartupsIndexRoute: StartupsIndexRoute,
   TeamIndexRoute: TeamIndexRoute,
   ApiPublicPrototypeAssessmentRoute: ApiPublicPrototypeAssessmentRoute,
+  ApiPublicStudentProjectIdeasRoute: ApiPublicStudentProjectIdeasRoute,
   ApiPublicYoungMarketPlanRoute: ApiPublicYoungMarketPlanRoute,
 }
 export const routeTree = rootRouteImport
