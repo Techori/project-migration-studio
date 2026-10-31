@@ -1,5 +1,10 @@
 # Roadmap
 
+- [ ] Add guided CSV mapping, validation, preview and secure record import
+- [ ] Add verified-email first-account admin setup and private account profiles
+- [ ] Add organized restoration of reports, registration documents and country logos
+- [ ] Audit and restore every archived website image
+
 - [ ] Update Funding Programme registration, optional summit package and online process; restore and verify autoplay video
 
 - [x] Add student market-validation AI advisor and guardian-consented registration; verified real submission storage and complete AI plan
