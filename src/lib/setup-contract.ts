@@ -37,6 +37,9 @@ export const expectedTables: Table[] = [
     baseline('form_submission_limits', 'key_hash:text window_started_at:timestamptz attempts:int4'),
     baseline('registration_applications', 'id:uuid application_code:text category:text full_name:text email:text phone:text details:jsonb document_path:text? document_name:text? status:text admin_notes:text created_at:timestamptz'),
     baseline('user_roles', 'id:uuid user_id:uuid role:app_role'),
+    baseline('prototype_ai_access_state', 'model_id:text status_code:integer message:text blocked_at:timestamptz'),
+    baseline('prototype_submissions', 'id:uuid idea:text prototype:text funding_goal:text eligibility_context:text ai_output:text created_at:timestamptz'),
+    baseline('young_innovators_registrations', 'id:uuid application_code:text student_name:text school_class:integer city:text guardian_name:text guardian_email:text guardian_phone:text idea_title:text idea:text guardian_consent:boolean consent_at:timestamptz fee_amount:integer gst_percent:integer status:text created_at:timestamptz'),
   ].filter(t => !parsedTables.some(p => p.name === t.name)),
 ];
 export const expectedFunctions = ['has_role', 'admin_save_employee', 'verify_employee', 'consume_form_submission_limit'];
