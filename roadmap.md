@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Redesign Young Innovators 2026 to the supplied black/crimson reference; generate matching imagery, preserve all data and forms, verify desktop and phone layouts
+
 - [x] Add guided CSV mapping, validation, preview and secure record import
 - [x] Add verified-email first-account admin setup and private account profiles
 - [x] Add organized restoration of reports, registration documents and country logos
