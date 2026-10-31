@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Add personalized student project ideas from interests, skills and available materials; real AI generation completed with three tailored ideas and a seven-day plan
+- [x] Improve Young Innovators mobile layout and light theme while preserving all existing content and forms; checked 320/390/768px without horizontal overflow; 18 rule tests pass
+
 - [x] Redesign Young Innovators 2026 to the supplied black/crimson reference; generate four matching images, preserve all data and forms, verify desktop/phone layouts, theme selection and FAQs; 14 programme tests pass
 
 - [x] Add guided CSV mapping, validation, preview and secure record import
