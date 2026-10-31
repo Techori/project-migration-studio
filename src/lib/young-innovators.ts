@@ -15,6 +15,7 @@ export const youngInnovators = {
   ],
   prizes: [{ place: "First prize", amount: 250000 }, { place: "Second prize", amount: 150000 }, { place: "Third prize", amount: 100000 }],
   additionalPrizes: { count: 25, amount: 10000 },
+  likesReward: { count: 100, likesThresholdExclusive: 5000, amount: 5000, claimRequired: true, termsApply: true, separateFromPrizePool: true },
   schedule: { registrationOpens: "2026-11-02", registrationCloses: "2026-11-06", videoDeadline: "2026-11-06", finalEvent: null },
 };
 
