@@ -11,7 +11,7 @@ export const Route = createFileRoute("/register/")({
     { property: "og:title", content: "Register With Us | Riloyd" },
     { property: "og:description", content: "Startups, mentors, investors and businesses can join the Riloyd ecosystem." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ]}),
+  ], links: [{ rel: "canonical", href: "/register" }]}),
   component: RegisterHub,
 });
 

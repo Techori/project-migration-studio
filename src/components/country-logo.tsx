@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { countryLogosQuery } from "@/lib/country-logos-query";
 import { countryLogoSchema, resolveLogo, type CountryLogo } from "@/lib/country-logo-schemas";
 import type { MarketConfig } from "@/lib/market-config";
@@ -7,7 +7,7 @@ import type { MarketConfig } from "@/lib/market-config";
 const LogoContext = createContext<CountryLogo[]>([]);
 
 export function CountryLogosProvider({ children }: { children: ReactNode }) {
-  const { data } = useSuspenseQuery(countryLogosQuery);
+  const { data = [] } = useQuery(countryLogosQuery);
   const [draft, setDraft] = useState<CountryLogo | null>(null);
   useEffect(() => {
     function receive(event: MessageEvent) {

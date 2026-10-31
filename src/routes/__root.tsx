@@ -11,7 +11,6 @@ import { type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { CountryLogosProvider } from "@/components/country-logo";
-import { countryLogosQuery } from "@/lib/country-logos-query";
 
 function NotFoundComponent() {
   return (
@@ -36,7 +35,6 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  loader: ({ context }) => context.queryClient.ensureQueryData(countryLogosQuery),
   head: () => ({
     meta: [
       { charSet: "utf-8" },

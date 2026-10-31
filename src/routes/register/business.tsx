@@ -9,6 +9,6 @@ export const Route = createFileRoute("/register/business")({
     { property: "og:title", content: "Business Registration | Riloyd" },
     { property: "og:description", content: "Join Riloyd's ecosystem as a business." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ]}),
+  ], links: [{ rel: "canonical", href: "/register/business" }]}),
   component: () => <RegistrationPage config={registrationConfigs.business} />,
 });

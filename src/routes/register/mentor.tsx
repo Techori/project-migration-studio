@@ -9,6 +9,6 @@ export const Route = createFileRoute("/register/mentor")({
     { property: "og:title", content: "Mentor Registration | Riloyd" },
     { property: "og:description", content: "Join Riloyd's ecosystem as a mentor." },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
-  ]}),
+  ], links: [{ rel: "canonical", href: "/register/mentor" }]}),
   component: () => <RegistrationPage config={registrationConfigs.mentor} />,
 });

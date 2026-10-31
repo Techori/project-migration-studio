@@ -1,5 +1,5 @@
 import { CountryLogo } from "@/components/country-logo";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { findMarket } from "@/lib/market-config";
@@ -12,7 +12,10 @@ import { CountryMarketBrief, CountryAdvisorySections, CountryProgrammeDetails } 
 import mentorship from "@/assets/international-mentorship.webp";
 
 export const Route = createFileRoute("/global-presence/$slug")({
-  loader: ({ context }) => context.queryClient.ensureQueryData(programmeFeesQuery),
+  loader: ({ context, params }) => {
+    if (!findMarket(params.slug)) throw notFound();
+    return context.queryClient.ensureQueryData(programmeFeesQuery);
+  },
   head: ({ params }) => {
     const market = findMarket(params.slug);
     const title = market ? `${market.name} | Riloyd Global Presence` : "Market Not Found | Riloyd";
