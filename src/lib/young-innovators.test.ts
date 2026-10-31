@@ -27,4 +27,22 @@ describe("Young Innovators student business and startup scope", () => {
   it("retains the poster registration and video dates", () => {
     expect(youngInnovators.schedule).toEqual({ registrationOpens: "2026-11-02", registrationCloses: "2026-11-06", videoDeadline: "2026-11-06", finalEvent: null });
   });
+  it("limits the separate likes reward to the first 100 participants", () => {
+    expect(youngInnovators.likesReward.count).toBe(100);
+  });
+  it("requires crossing 5000 likes", () => {
+    expect(youngInnovators.likesReward.likesThresholdExclusive).toBe(5000);
+  });
+  it("awards 5000 rupees per qualifying participant", () => {
+    expect(youngInnovators.likesReward.amount).toBe(5000);
+  });
+  it("requires a claim", () => {
+    expect(youngInnovators.likesReward.claimRequired).toBe(true);
+  });
+  it("applies terms and conditions", () => {
+    expect(youngInnovators.likesReward.termsApply).toBe(true);
+  });
+  it("keeps likes rewards separate from existing prizes", () => {
+    expect(youngInnovators.likesReward.separateFromPrizePool).toBe(true);
+  });
 });
