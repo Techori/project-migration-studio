@@ -29,6 +29,13 @@
       "when": 1793433588226,
       "tag": "0003_restrict_internal_account_and_role_functions",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793434912442,
+      "tag": "0004_admin_student_registration_review",
+      "breakpoints": true
     }
   ]
 }
