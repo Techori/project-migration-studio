@@ -22,6 +22,7 @@ export const importSchemas = {
   young_innovators_registrations: z.object({ ...base, application_code: required, student_name: required, school_class: z.number().int().min(6).max(12), city: required, guardian_name: required, guardian_email: z.string().email(), guardian_phone: required, idea_title: required, idea: required, guardian_consent: z.literal(true), consent_at: z.string().datetime({offset:true}).optional(), fee_amount: z.number().int().nonnegative(), gst_percent: z.number().int().nonnegative().optional(), status }).strict(),
 };
 export type ImportTable = keyof typeof importSchemas;
+export function importFields(table: ImportTable): Record<string, z.ZodType> { return importSchemas[table].shape; }
 export const importLabels: Record<ImportTable,string> = { contact_submissions:'Enquiries', registration_applications:'Applications', employees:'Employees', people_profiles:'People profiles', customer_reports:'Customer reports', country_logos:'Country logos', country_programme_fees:'Registration fees', prototype_submissions:'Prototype submissions', young_innovators_registrations:'Young Innovators' };
 export function parseCsv(source: string) {
   const result = Papa.parse<Record<string,string>>(source.replace(/^\uFEFF/, ''), { header:true, skipEmptyLines:'greedy' });
@@ -50,6 +51,6 @@ export function mapCsvRows(table: ImportTable, rows: Record<string,string>[], ma
     }
     const result = importSchemas[table].safeParse(record);
     if (!result.success) errors.push(...result.error.issues.map(i => `${i.path.join('.')}: ${i.message}`));
-    return { row:index+2, record:result.success ? result.data : record, errors };
+    return { row:index+2, record:(result.success ? result.data : record) as Record<string,unknown>, errors };
   });
 }

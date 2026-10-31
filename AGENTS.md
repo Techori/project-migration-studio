@@ -10,6 +10,9 @@
 <!-- LOVABLE:END -->
 
 - This remix starts with an empty Drizzle migration history; create future database changes through the migration tool rather than restoring the source project's copied migrations, so the new database has its own history.
+- First-admin setup uses a verified first-auth-account check and a transaction advisory lock in a restricted RPC; existing admins close setup, so later accounts cannot seize administration.
+- CSV imports use shared allowlisted schemas and an atomic SECURITY INVOKER import RPC with admin RLS; conflicts skip without overwriting and auth/security tables are excluded.
+- Restore files by their owning record at the stored path after server-side admin checks, with explicit replacement consent; account profiles remain separate from public people profiles and access roles.
 - Website registrations and enquiries use validated server functions and a durable submission limiter; admin inbox reads/reviews use authenticated RLS-scoped functions, and registration documents stay in private Storage with admin-authorized download by application ID, so visitors cannot access other people's submissions.
 - Preserve the summit popup's Zoho embed as its existing submission destination; do not imply those external submissions are in the local admin inbox without a verified synchronization integration.
 - Generate submission PDFs and Excel workbooks lazily in the browser from authenticated inbox data; prepare blobs before download clicks and export both inboxes across all pages, so private details remain admin-only and mobile downloads retain user activation.

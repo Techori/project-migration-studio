@@ -13,6 +13,7 @@ export function AuthForm({ redirectPath = "/" }: { redirectPath?: string }) {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [confirmationPending, setConfirmationPending] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setMsg(null);
@@ -25,7 +26,7 @@ export function AuthForm({ redirectPath = "/" }: { redirectPath?: string }) {
     } else {
       const { data, error } = await supabase.auth.signUp({ ...p.data, options: { emailRedirectTo: `${window.location.origin}${redirectPath}` } });
       if (error) setMsg(error.message);
-      else if (!data.session) setMsg("Check your email to confirm your account, then sign in here.");
+      else if (!data.session) { setConfirmationPending(true); setMsg("Check your email to confirm your account, then sign in here."); }
     }
     setBusy(false);
   }
@@ -36,6 +37,7 @@ export function AuthForm({ redirectPath = "/" }: { redirectPath?: string }) {
     <div className="grid gap-2"><Label htmlFor="a-pass">Password</Label><Input id="a-pass" type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete={mode === "in" ? "current-password" : "new-password"} /></div>
     {msg && <p role="status" className="text-sm text-muted-foreground">{msg}</p>}
     <Button type="submit" disabled={busy}>{busy ? "Please wait…" : mode === "in" ? "Sign in" : "Create account"}</Button>
-    <button type="button" className="text-left text-xs text-primary" onClick={() => { setMode(mode === "in" ? "up" : "in"); setMsg(null); }}>{mode === "in" ? "No account yet? Create one" : "Already have an account? Sign in"}</button>
+    {confirmationPending && <Button type="button" variant="outline" disabled={busy} onClick={async () => { setBusy(true); const {error} = await supabase.auth.resend({type:'signup',email,options:{emailRedirectTo:`${window.location.origin}${redirectPath}`}}); setMsg(error ? error.message : 'Verification email sent.'); setBusy(false); }}>Resend verification email</Button>}
+    <Button type="button" variant="link" className="justify-start px-0 text-xs" onClick={() => { setMode(mode === "in" ? "up" : "in"); setMsg(null); }}>{mode === "in" ? "No account yet? Create one" : "Already have an account? Sign in"}</Button>
   </form>;
 }
