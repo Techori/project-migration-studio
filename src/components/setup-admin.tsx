@@ -25,7 +25,7 @@ export function SetupAdmin() {
     {result && <div className="mt-6">
       <p role="status" className="font-semibold">{errors ? `${errors} mismatches found` : 'No mismatches in the application baseline'} · {result.findings.length - errors} warnings</p>
       <p className="mt-2 text-sm text-muted-foreground">{result.tableCount} database tables · {result.expectedCount} expected tables · {new Date(result.checkedAt).toLocaleString()}</p>
-      <p className="mt-2 text-sm text-muted-foreground">Scope: columns, types, nullability, row security, required function names and private storage. Defaults, indexes, constraints, function bodies and policy rules are not compared.</p>
+      <p className="mt-2 text-sm text-muted-foreground">Scope: columns, types, nullability, row security, required function and trigger names, and private storage. Defaults, indexes, constraints, function bodies and policy rules are not compared.</p>
       <div className="mt-5 overflow-x-auto"><table className="w-full text-left text-sm"><thead className="border-b border-border"><tr>{['Status','Object','Expected','Database / finding'].map(h => <th key={h} className="px-3 py-3 font-semibold">{h}</th>)}</tr></thead><tbody>{result.findings.map((f,i) => <tr key={`${f.object}-${i}`} className="border-b border-border"><td className="px-3 py-4 align-top"><span className={f.severity === 'error' ? 'text-destructive' : 'text-muted-foreground'}><AlertTriangle size={14} className="mr-1 inline" />{f.severity}</span></td><td className="break-words px-3 py-4 align-top font-mono">{f.object}</td><td className="px-3 py-4 align-top">{f.expected}</td><td className="min-w-48 px-3 py-4 align-top">{f.actual}</td></tr>)}</tbody></table></div>
     </div>}
   </section>;

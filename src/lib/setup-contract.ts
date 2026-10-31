@@ -11,14 +11,28 @@ export const normalizeType = (type: string) => aliases[type.toLowerCase()] ?? ty
 export function parseSqlTables(source: string): Table[] {
   // Copied declarations remain useful expectations even when their replay was disabled.
   const sql = source.replace(/^-- /gm, '');
-  return Array.from(sql.matchAll(/CREATE TABLE public\.(\w+)\s*\(([\s\S]*?)\n\);/g), match => ({
+  return Array.from(sql.matchAll(/CREATE TABLE public\.(\w+)\s*\(([\s\S]*?)\);/g), match => ({
     name: match[1] ?? '', rls: true,
-    columns: (match[2] ?? '').split('\n').flatMap(line => {
-      const column = line.trim().match(/^(\w+)\s+(uuid|text|jsonb|timestamptz|integer|boolean|date|bigint)\b(.*)/i);
+    columns: splitSqlColumns(match[2] ?? '').flatMap(line => {
+      const column = line.trim().match(/^(\w+)\s+(uuid|text\[\]|text|jsonb|timestamptz|integer|boolean|date|bigint|public\.app_role)(.*)/i);
       if (!column?.[1] || !column[2]) return [];
-      return [{ name: column[1], type: normalizeType(column[2]), nullable: !/NOT NULL|PRIMARY KEY/i.test(column[3] ?? '') }];
+      return [{ name: column[1], type: normalizeType(column[2].replace('public.', '')), nullable: !/NOT NULL|PRIMARY KEY/i.test(column[3] ?? '') }];
     }),
   }));
+}
+function splitSqlColumns(body: string) {
+  let depth = 0, quoted = false, start = 0;
+  const fields: string[] = [];
+  for (let i = 0; i < body.length; i++) {
+    const c = body[i];
+    if (c === "'") { if (quoted && body[i + 1] === "'") { i++; continue; } quoted = !quoted; }
+    if (quoted) continue;
+    if (c === '(') depth++;
+    if (c === ')') depth--;
+    if (c === ',' && depth === 0) { fields.push(body.slice(start, i)); start = i + 1; }
+  }
+  fields.push(body.slice(start));
+  return fields;
 }
 const baseline = (name: string, fields: string): Table => ({ name, rls: true, columns: fields.split(' ').flatMap(field => {
   const [column, type] = field.split(':');
@@ -42,7 +56,8 @@ export const expectedTables: Table[] = [
     baseline('young_innovators_registrations', 'id:uuid application_code:text student_name:text school_class:integer city:text guardian_name:text guardian_email:text guardian_phone:text idea_title:text idea:text guardian_consent:boolean consent_at:timestamptz fee_amount:integer gst_percent:integer status:text created_at:timestamptz'),
   ].filter(t => !parsedTables.some(p => p.name === t.name)),
 ];
-export const expectedFunctions = ['has_role', 'admin_save_employee', 'verify_employee', 'consume_form_submission_limit'];
+export const expectedFunctions = ['has_role', 'admin_save_employee', 'verify_employee', 'consume_form_submission_limit', 'claim_first_admin', 'first_admin_setup_status', 'admin_import_records', 'create_account_profile', 'admin_setup_metadata', 'sync_approved_application_profile'];
+export const expectedTriggers = ['create_account_profile', 'sync_approved_application_profile'];
 export const drizzleSchemaEmpty = !/\b(?:pgTable|pgSchema)\s*\(/.test(drizzleSource);
 export function compareSchema(expected: Table[], actual: Table[]): Finding[] {
   const findings: Finding[] = [];
