@@ -1,11 +1,11 @@
 import { ArrowRight, CalendarDays, GraduationCap, Lightbulb, Trophy, Users, Rocket, Video } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import hero from '@/assets/young-innovators-supplied-poster.png.asset.json';
+import hero from '@/assets/young-innovators-poster-2026.webp.asset.json';
 
 export function YoungInnovatorsHero() {
   return <>
     <section className="relative isolate overflow-hidden border-b border-border bg-background text-foreground">
-      <img src={hero.url} width={1920} height={768} alt="Riloyd Young Innovators Challenge 2026 — Big Ideas. Brighter Bharat. Indian students exploring innovation" fetchPriority="high" className="block h-auto w-full" />
+      <img src={hero.url} width={1983} height={793} alt="Riloyd Young Innovators Challenge 2026 — Big Ideas. Brighter Bharat. Indian students exploring innovation" fetchPriority="high" decoding="async" className="block h-auto w-full" />
       <div className="relative mx-auto max-w-[1380px] px-5 py-6 sm:px-6 lg:px-12">
         <div className="max-w-[620px]">
           <p className="text-xs font-bold uppercase">Riloyd presents</p>

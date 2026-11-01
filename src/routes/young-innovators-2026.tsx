@@ -6,21 +6,25 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { innovationThemes, youngInnovators } from "@/lib/young-innovators";
 import { DeferredContent } from "@/components/deferred-content";
 import { YoungInnovatorsHero } from "@/components/young-innovators-hero";
-import trophy from "@/assets/young-innovators-trophy-2026.jpg";
-import ideaLab from "@/assets/young-innovators-idea-lab-2026.jpg";
-import newShowcase from "@/assets/young-innovators-showcase-2026.jpg";
-import suppliedShowcase from "@/assets/young-innovators-supplied-showcase.png.asset.json";
+import trophy from "@/assets/young-innovators-trophy-2026.site-opt.webp";
+import ideaLab from "@/assets/young-innovators-idea-lab-2026.site-opt.webp";
+import newShowcase from "@/assets/young-innovators-showcase-2026.site-opt.webp";
+import suppliedShowcase from "@/assets/young-innovators-showcase-supplied-2026.webp.asset.json";
+import share from "@/assets/young-innovators-share-2026.jpg.asset.json";
+import hero from "@/assets/young-innovators-poster-2026.webp.asset.json";
 
 const MarketAdvisor = lazy(() => import("@/components/young-innovators-tools").then(m => ({ default: m.StudentMarketAdvisor })));
 const Registration = lazy(() => import("@/components/young-innovators-tools").then(m => ({ default: m.StudentRegistration })));
 
 const ProjectIdeas = lazy(() => import("@/components/student-project-ideas").then(m => ({ default: m.StudentProjectIdeas })));
 
-const title = "Young Innovators 2026 — Student Startup Ideas | Riloyd India";
-const description = "Riloyd Young Innovators 2026 is for school students in Classes 6–12 with business or startup ideas. Explore a student-friendly idea journey and 60-second pitch guide.";
+const title = "Young Innovators Challenge 2026 | Riloyd India";
+const description = "Join Riloyd Young Innovators Challenge 2026 for Classes 6–12 in India. Explore startup ideas, AI project guidance, fees, rewards and guardian-consented registration.";
+const pageUrl = "https://riloyd-project-migration-studio.lovable.app/young-innovators-2026";
+const shareUrl = `https://riloyd-project-migration-studio.lovable.app${share.url}`;
 
 export const Route = createFileRoute("/young-innovators-2026")({
-  head: () => ({ meta: [{ title }, { name: "description", content: description }, { property: "og:title", content: title }, { property: "og:description", content: description }, { property: "og:type", content: "website" },  { name: "twitter:card", content: "summary_large_image" }], links: [{ rel: "canonical", href: "/young-innovators-2026" }] }),
+  head: () => ({ meta: [{ title }, { name: "description", content: description }, { property: "og:title", content: title }, { property: "og:description", content: description }, { property: "og:type", content: "website" }, { property: "og:url", content: pageUrl }, { property: "og:image", content: shareUrl }, { property: "og:image:width", content: "1200" }, { property: "og:image:height", content: "630" }, { property: "og:image:alt", content: "Riloyd Young Innovators Challenge 2026 — Big Ideas. Brighter Bharat." }, { name: "twitter:image", content: shareUrl }, { name: "twitter:card", content: "summary_large_image" }], links: [{ rel: "canonical", href: pageUrl }, { rel: "preload", as: "image", href: hero.url }] }),
   component: YoungInnovatorsPage,
 });
 
