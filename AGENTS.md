@@ -45,3 +45,6 @@
 - Render shared country logos from bundled fallbacks immediately and load saved overrides without blocking page rendering; preserve same-origin preview restrictions.
 - Use lazy-loaded admin panels and server-validated access/setup eligibility; discard stale access responses and clear protected caches on sign-out.
 - Prototype AI payment/permission pauses require explicit admin reset after access recovery, never automatic inference retries.
+
+- Sitemap paths derive from explicit route staticData decisions and shared service slugs; exclude private/noindex pages and omit lastmod without authoritative page timestamps.
+- Student review changes only approved/rejected status through an admin-validated server function and column-scoped RLS writes; approval never publishes minors or confirms payment.

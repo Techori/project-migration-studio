@@ -18,6 +18,7 @@ import { Route as FundingProgrammeRouteImport } from './routes/funding-programme
 import { Route as PaymentRouteImport } from './routes/payment'
 import { Route as PrototypeFundingRouteImport } from './routes/prototype-funding'
 import { Route as ResearchRouteImport } from './routes/research'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as YoungInnovators2026RouteImport } from './routes/young-innovators-2026'
 import { Route as BusinessesIndexRouteImport } from './routes/businesses.index'
 import { Route as BusinessesSlugRouteImport } from './routes/businesses.$slug'
@@ -85,6 +86,11 @@ const PrototypeFundingRoute = PrototypeFundingRouteImport.update({
 const ResearchRoute = ResearchRouteImport.update({
   id: '/research',
   path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const YoungInnovators2026Route = YoungInnovators2026RouteImport.update({
@@ -216,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/payment': typeof PaymentRoute
   '/prototype-funding': typeof PrototypeFundingRoute
   '/research': typeof ResearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/young-innovators-2026': typeof YoungInnovators2026Route
   '/businesses/$slug': typeof BusinessesSlugRoute
   '/global-presence/$slug': typeof GlobalPresenceSlugRoute
@@ -250,6 +257,7 @@ export interface FileRoutesByTo {
   '/payment': typeof PaymentRoute
   '/prototype-funding': typeof PrototypeFundingRoute
   '/research': typeof ResearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/young-innovators-2026': typeof YoungInnovators2026Route
   '/businesses/$slug': typeof BusinessesSlugRoute
   '/global-presence/$slug': typeof GlobalPresenceSlugRoute
@@ -285,6 +293,7 @@ export interface FileRoutesById {
   '/payment': typeof PaymentRoute
   '/prototype-funding': typeof PrototypeFundingRoute
   '/research': typeof ResearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/young-innovators-2026': typeof YoungInnovators2026Route
   '/businesses/$slug': typeof BusinessesSlugRoute
   '/global-presence/$slug': typeof GlobalPresenceSlugRoute
@@ -321,6 +330,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/prototype-funding'
     | '/research'
+    | '/sitemap.xml'
     | '/young-innovators-2026'
     | '/businesses/$slug'
     | '/global-presence/$slug'
@@ -355,6 +365,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/prototype-funding'
     | '/research'
+    | '/sitemap.xml'
     | '/young-innovators-2026'
     | '/businesses/$slug'
     | '/global-presence/$slug'
@@ -389,6 +400,7 @@ export interface FileRouteTypes {
     | '/payment'
     | '/prototype-funding'
     | '/research'
+    | '/sitemap.xml'
     | '/young-innovators-2026'
     | '/businesses/$slug'
     | '/global-presence/$slug'
@@ -424,6 +436,7 @@ export interface RootRouteChildren {
   PaymentRoute: typeof PaymentRoute
   PrototypeFundingRoute: typeof PrototypeFundingRoute
   ResearchRoute: typeof ResearchRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   YoungInnovators2026Route: typeof YoungInnovators2026Route
   BusinessesSlugRoute: typeof BusinessesSlugRoute
   GlobalPresenceSlugRoute: typeof GlobalPresenceSlugRoute
@@ -512,6 +525,13 @@ declare module '@tanstack/react-router' {
       path: '/research'
       fullPath: '/research'
       preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/young-innovators-2026': {
@@ -688,6 +708,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaymentRoute: PaymentRoute,
   PrototypeFundingRoute: PrototypeFundingRoute,
   ResearchRoute: ResearchRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   YoungInnovators2026Route: YoungInnovators2026Route,
   BusinessesSlugRoute: BusinessesSlugRoute,
   GlobalPresenceSlugRoute: GlobalPresenceSlugRoute,

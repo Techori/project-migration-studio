@@ -5,6 +5,7 @@ import { categoryOrder, registrationConfigs } from "@/lib/registration-config";
 import teamAsset from "@/assets/local/riloyd-team.png.optimized.webp";
 
 export const Route = createFileRoute("/register/")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Register With Us | Riloyd" },
     { name: "description", content: "Register with Riloyd as a startup, mentor, investor or business and join a growth-focused ecosystem." },

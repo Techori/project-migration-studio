@@ -17,6 +17,7 @@ const title = "Prototype & Seed Funding Programme | Riloyd";
 const description = "Bring young India's ideas to life with Riloyd's Prototype & Seed Funding Programme. Simple eligibility, a 60-second idea video and ₹999 plus 18% GST registration.";
 
 export const Route = createFileRoute("/prototype-funding")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title }, { name: "description", content: description },
     { property: "og:title", content: title }, { property: "og:description", content: description },

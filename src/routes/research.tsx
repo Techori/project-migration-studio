@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import researchImage from "@/assets/local/research-overview.png.optimized.webp";
 
 export const Route = createFileRoute("/research")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Our Researchs | Riloyd Startup & Business Insights" },
     { name: "description", content: "Explore Riloyd research themes for startups, businesses and ideas, with clearly labelled illustrative sample reports." },

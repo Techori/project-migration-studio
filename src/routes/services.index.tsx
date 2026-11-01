@@ -5,6 +5,7 @@ import { serviceConfigs, serviceOrder } from "@/lib/service-config";
 import officeAsset from "@/assets/local/riloyd-office.png.optimized.webp";
 
 export const Route = createFileRoute("/services/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Services | Riloyd" },

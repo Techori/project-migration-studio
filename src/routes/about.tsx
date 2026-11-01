@@ -34,6 +34,7 @@ const mapImage = mapImageAsset;
 import logoAsset from "@/assets/local/riloyd-logo.png.optimized.webp";
 
 export const Route = createFileRoute("/about")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "About Riloyd | Insight, Decisions and Execution" },

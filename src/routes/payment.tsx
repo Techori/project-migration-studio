@@ -7,6 +7,7 @@ import { accountHolder, paymentAccounts } from "@/lib/payment-accounts";
 import { marketConfigs, marketOrder } from "@/lib/market-config";
 
 export const Route = createFileRoute("/payment")({
+  staticData: { sitemap: true },
   validateSearch: (search: Record<string, unknown>) => ({ country: marketOrder.find(key => key === search["country"]) ?? "usa" }),
   head: () => ({ meta: [{ title: "Payment Account Details | Riloyd" }, { name: "description", content: "Six published Rishishwar Industry Private Limited payment accounts in USD, GBP, AED, EUR, CAD and AUD for Riloyd applicants." }, { property: "og:title", content: "Payment Account Details | Riloyd" }, { property: "og:description", content: "Bank details and payment methods for six Riloyd programme payment accounts." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }], links: [{ rel: "canonical", href: "/payment" }] }),
   component: PaymentPage,

@@ -1,6 +1,7 @@
 # Roadmap
 
 - [ ] Optimize all website images, prioritizing Young Innovators, restore localhost rendering and use the two supplied images.
+- [ ] Fix the reported missing Young Innovators poster in standalone localhost with a bundled optimized image.
 - [ ] Update Young Innovators search/share metadata and add public sitemap; verify Google indexing access.
 - [ ] Add admin student registration table review with approve/reject and verify signed-in persistence.
 

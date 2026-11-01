@@ -15,6 +15,7 @@ function findService(slug: string): ServiceConfig | undefined {
 }
 
 export const Route = createFileRoute("/services/$slug")({
+  staticData: { sitemap: true },
   loader: ({ params }) => {
     const service = findService(params.slug);
     if (!service) throw notFound();

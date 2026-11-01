@@ -12,6 +12,7 @@ import { CountryMarketBrief, CountryAdvisorySections, CountryProgrammeDetails } 
 import mentorship from "@/assets/international-mentorship.webp";
 
 export const Route = createFileRoute("/global-presence/$slug")({
+  staticData: { sitemap: false },
   loader: ({ context, params }) => {
     if (!findMarket(params.slug)) throw notFound();
     return context.queryClient.ensureQueryData(programmeFeesQuery);

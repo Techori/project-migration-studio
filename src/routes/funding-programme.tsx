@@ -145,6 +145,7 @@ const faqs = [
 ];
 
 export const Route = createFileRoute("/funding-programme")({
+  staticData: { sitemap: true },
   loader: ({ context }) => context.queryClient.ensureQueryData(programmeFeesQuery),
   head: () => ({
     meta: [
