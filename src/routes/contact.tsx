@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import officeAsset from "@/assets/local/riloyd-contact-office.png.optimized.webp";
 
 export const Route = createFileRoute("/contact")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Contact Riloyd | Build a Stronger Tomorrow" },

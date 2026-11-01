@@ -24,6 +24,7 @@ const pageUrl = "https://riloyd-project-migration-studio.lovable.app/young-innov
 const shareUrl = `https://riloyd-project-migration-studio.lovable.app${share.url}`;
 
 export const Route = createFileRoute("/young-innovators-2026")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [{ title }, { name: "description", content: description }, { property: "og:title", content: title }, { property: "og:description", content: description }, { property: "og:type", content: "website" }, { property: "og:url", content: pageUrl }, { property: "og:image", content: shareUrl }, { property: "og:image:width", content: "1200" }, { property: "og:image:height", content: "630" }, { property: "og:image:alt", content: "Riloyd Young Innovators Challenge 2026 — Big Ideas. Brighter Bharat." }, { name: "twitter:image", content: shareUrl }, { name: "twitter:card", content: "summary_large_image" }], links: [{ rel: "canonical", href: pageUrl }, { rel: "preload", as: "image", href: hero.url }] }),
   component: YoungInnovatorsPage,
 });

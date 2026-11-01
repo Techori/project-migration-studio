@@ -3,6 +3,7 @@ import { RegistrationPage } from "@/components/registration/registration-page";
 import { registrationConfigs } from "@/lib/registration-config";
 
 export const Route = createFileRoute("/register/startup")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Startup Registration | Riloyd" },
     { name: "description", content: "Register as a startup with Riloyd and access relevant expertise, connections and growth opportunities." },

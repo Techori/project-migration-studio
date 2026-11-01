@@ -13,6 +13,7 @@ import boardroomImageAsset from "@/assets/local/global-boardroom.jpg.optimized.w
 const boardroomImage = boardroomImageAsset;
 
 export const Route = createFileRoute("/global-presence/")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "Global Presence | Riloyd" },
     { name: "description", content: "Explore Riloyd's global presence across India, Britain, UAE, Canada, America, Singapore, Europe and Australia." },

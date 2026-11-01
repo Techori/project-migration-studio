@@ -23,6 +23,7 @@ function useSession() {
 }
 
 export const Route = createFileRoute("/downloads")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Downloads | Riloyd Business Reports & Research" },
     { name: "description", content: "Retrieve your Riloyd business reports, valuation reports, research and documents using your report number and publish date." },

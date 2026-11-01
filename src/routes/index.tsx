@@ -31,6 +31,7 @@ const ServiceAdvisor = lazy(() => import("@/components/service-advisor").then(mo
 const FundingPopup = lazy(() => import("@/components/funding-popup").then(module => ({ default: module.FundingPopup })));
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Riloyd | Business Funding & Transformation" },
